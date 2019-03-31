@@ -76,6 +76,7 @@ public class ModelLoaderRegistry {
     boolean isEmpty = true;
     List<ModelLoader<A, ?>> filteredLoaders = Collections.emptyList();
     //noinspection ForLoopReplaceableByForEach to improve perf
+    //找到所有可以抓取的model
     for (int i = 0; i < size; i++) {
       ModelLoader<A, ?> loader = modelLoaders.get(i);
       if (loader.handles(model)) {

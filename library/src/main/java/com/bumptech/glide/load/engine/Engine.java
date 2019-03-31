@@ -35,6 +35,9 @@ public class Engine implements EngineJobListener,
   private static final boolean VERBOSE_IS_LOGGABLE = Log.isLoggable(TAG, Log.VERBOSE);
   private final Jobs jobs;
   private final EngineKeyFactory keyFactory;
+  /**
+   * 默认就是LRU传递尽量
+   */
   private final MemoryCache cache;
   private final EngineJobFactory engineJobFactory;
   private final ResourceRecycler resourceRecycler;
@@ -170,6 +173,8 @@ public class Engine implements EngineJobListener,
     //生成唯一标识
     EngineKey key = keyFactory.buildKey(model, signature, width, height, transformations,
         resourceClass, transcodeClass, options);
+
+    //这是弱引用，也可以说是正在引用，生命周期控件自己管理
     EngineResource<?> active = loadFromActiveResources(key, isMemoryCacheable);
     if (active != null) {
       cb.onResourceReady(active, DataSource.MEMORY_CACHE);
@@ -178,7 +183,7 @@ public class Engine implements EngineJobListener,
       }
       return null;
     }
-
+    //这是强引用，取出后会转换成为active，LRU管理
     EngineResource<?> cached = loadFromCache(key, isMemoryCacheable);
     if (cached != null) {
       cb.onResourceReady(cached, DataSource.MEMORY_CACHE);
@@ -188,6 +193,7 @@ public class Engine implements EngineJobListener,
       return null;
     }
 
+    //如果两级内存缓存都没有找到，则查找是否开启过任务
     EngineJob<?> current = jobs.get(key, onlyRetrieveFromCache);
     if (current != null) {
       current.addCallback(cb, callbackExecutor);
@@ -266,6 +272,7 @@ public class Engine implements EngineJobListener,
   }
 
   private EngineResource<?> getEngineResourceFromCache(Key key) {
+    //从LRU中去取
     Resource<?> cached = cache.remove(key);
 
     final EngineResource<?> result;

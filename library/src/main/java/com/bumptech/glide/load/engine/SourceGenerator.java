@@ -40,6 +40,7 @@ class SourceGenerator implements DataFetcherGenerator,
 
   @Override
   public boolean startNext() {
+    //如果有缓存就直接加载进内存
     if (dataToCache != null) {
       Object data = dataToCache;
       dataToCache = null;
@@ -51,9 +52,11 @@ class SourceGenerator implements DataFetcherGenerator,
     }
     sourceCacheGenerator = null;
 
+    //无缓存，从远端加载
     loadData = null;
     boolean started = false;
     while (!started && hasNextModelLoader()) {
+      //从远端加载
       loadData = helper.getLoadData().get(loadDataListIndex++);
       if (loadData != null
           && (helper.getDiskCacheStrategy().isDataCacheable(loadData.fetcher.getDataSource())

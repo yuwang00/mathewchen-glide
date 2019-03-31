@@ -271,6 +271,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
   private void runWrapped() {
     switch (runReason) {
       case INITIALIZE:
+        //递归拿到最适合的状态，到底从哪里加载图片
         stage = getNextStage(Stage.INITIALIZE);
         currentGenerator = getNextGenerator();
         runGenerators();
@@ -302,11 +303,13 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
   }
 
   private void runGenerators() {
+    //记录一下线程和开始时间
     currentThread = Thread.currentThread();
     startFetchTime = LogTime.getLogTime();
     boolean isStarted = false;
     while (!isCancelled && currentGenerator != null
         && !(isStarted = currentGenerator.startNext())) {
+      //如果开启不了generator，就默认下一状态，直到没有状态可用
       stage = getNextStage(stage);
       currentGenerator = getNextGenerator();
 
@@ -346,7 +349,9 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
   }
 
   private Stage getNextStage(Stage current) {
+    //递归的状态机，如果顺序是从处理过的资源中加载->从未处理过的资源中加载->从远端加载
     switch (current) {
+      //初始态
       case INITIALIZE:
         return diskCacheStrategy.decodeCachedResource()
             ? Stage.RESOURCE_CACHE : getNextStage(Stage.RESOURCE_CACHE);
@@ -356,6 +361,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
       case DATA_CACHE:
         // Skip loading from source if the user opted to only retrieve the resource from cache.
         return onlyRetrieveFromCache ? Stage.FINISHED : Stage.SOURCE;
+        //
       case SOURCE:
       case FINISHED:
         return Stage.FINISHED;
