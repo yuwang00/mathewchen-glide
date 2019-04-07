@@ -73,6 +73,7 @@ public class StringLoader<Data> implements ModelLoader<String, Data> {
     @Override
     public ModelLoader<String, InputStream> build(
         @NonNull MultiModelLoaderFactory multiFactory) {
+      //此时model变成了Uri
       return new StringLoader<>(multiFactory.build(Uri.class, InputStream.class));
     }
 

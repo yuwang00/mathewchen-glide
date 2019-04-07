@@ -101,8 +101,11 @@ public class MultiModelLoaderFactory {
         if (alreadyUsedEntries.contains(entry)) {
           continue;
         }
+        //如果提前add的ModelLoader可以处理这个类型的model,先将它加入到队列中
+        //找到第一层，此时model为String
         if (entry.handles(modelClass)) {
           alreadyUsedEntries.add(entry);
+          //为什么不遍历一次，而是用递归？
           loaders.add(this.<Model, Object>build(entry));
           alreadyUsedEntries.remove(entry);
         }
@@ -137,10 +140,13 @@ public class MultiModelLoaderFactory {
         // A Uri loader may translate to another model, which in turn may translate back to a Uri.
         // The original Uri loader won't be provided to the intermediate model loader, although
         // other Uri loaders will be.
+        //此时model变成了uri，但是alreadyUsedEntries还存有调用该递归源头的entry
         if (alreadyUsedEntries.contains(entry)) {
           ignoredAnyEntries = true;
           continue;
         }
+
+        //找到能够处理uri与InputStream的entry,大概有8个这样
         if (entry.handles(modelClass, dataClass)) {
           alreadyUsedEntries.add(entry);
           loaders.add(this.<Model, Data>build(entry));
@@ -148,6 +154,7 @@ public class MultiModelLoaderFactory {
         }
       }
       if (loaders.size() > 1) {
+        //多个满足条件的就又需要创建multi
         return factory.build(loaders, throwableListPool);
       } else if (loaders.size() == 1) {
         return loaders.get(0);
@@ -176,6 +183,7 @@ public class MultiModelLoaderFactory {
   @NonNull
   @SuppressWarnings("unchecked")
   private <Model, Data> ModelLoader<Model, Data> build(@NonNull Entry<?, ?> entry) {
+    //调用StringLoader里的方法，此时model还是String
     return (ModelLoader<Model, Data>) Preconditions.checkNotNull(entry.factory.build(this));
   }
 
@@ -202,7 +210,7 @@ public class MultiModelLoaderFactory {
     public boolean handles(@NonNull Class<?> modelClass, @NonNull Class<?> dataClass) {
       return handles(modelClass) && this.dataClass.isAssignableFrom(dataClass);
     }
-
+    //这里只判断是不是符合类型，并不做细判断，与Loader里面的有区别
     public boolean handles(@NonNull Class<?> modelClass) {
       return this.modelClass.isAssignableFrom(modelClass);
     }

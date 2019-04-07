@@ -43,6 +43,9 @@ public class Registry {
   private static final String BUCKET_PREPEND_ALL = "legacy_prepend_all";
   private static final String BUCKET_APPEND_ALL = "legacy_append";
 
+  /**
+   * Model加载器
+   */
   private final ModelLoaderRegistry modelLoaderRegistry;
   private final EncoderRegistry encoderRegistry;
   private final ResourceDecoderRegistry decoderRegistry;
@@ -479,6 +482,7 @@ public class Registry {
     if (loadPathCache.isEmptyLoadPath(result)) {
       return null;
     } else if (result == null) {
+      //获取所有可能性链路
       List<DecodePath<Data, TResource, Transcode>> decodePaths =
           getDecodePaths(dataClass, resourceClass, transcodeClass);
       // It's possible there is no way to decode or transcode to the desired types from a given
@@ -486,6 +490,7 @@ public class Registry {
       if (decodePaths.isEmpty()) {
         result = null;
       } else {
+        //再包了一层
         result =
             new LoadPath<>(
                 dataClass, resourceClass, transcodeClass, decodePaths, throwableListPool);
@@ -500,10 +505,12 @@ public class Registry {
       @NonNull Class<Data> dataClass, @NonNull Class<TResource> resourceClass,
       @NonNull Class<Transcode> transcodeClass) {
     List<DecodePath<Data, TResource, Transcode>> decodePaths = new ArrayList<>();
+    //从可用的解码器中找到对应可以解成的资源格式Resource
     List<Class<TResource>> registeredResourceClasses =
         decoderRegistry.getResourceClasses(dataClass, resourceClass);
 
     for (Class<TResource> registeredResourceClass : registeredResourceClasses) {
+      //找出Resource可以解析成哪些格式
       List<Class<Transcode>> registeredTranscodeClasses =
           transcoderRegistry.getTranscodeClasses(registeredResourceClass, transcodeClass);
 
@@ -520,6 +527,8 @@ public class Registry {
         decodePaths.add(path);
       }
     }
+
+    //总之就是一个二层循环乘法定律枚举出所有可能性
     return decodePaths;
   }
 

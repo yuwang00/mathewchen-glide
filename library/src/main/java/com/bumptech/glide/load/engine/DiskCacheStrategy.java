@@ -123,15 +123,14 @@ public abstract class DiskCacheStrategy {
   public static final DiskCacheStrategy AUTOMATIC = new DiskCacheStrategy() {
     @Override
     public boolean isDataCacheable(DataSource dataSource) {
+      //从网上拉取的数据才会存
       return dataSource == DataSource.REMOTE;
     }
 
     @Override
     public boolean isResourceCacheable(boolean isFromAlternateCacheKey, DataSource dataSource,
         EncodeStrategy encodeStrategy) {
-      return ((isFromAlternateCacheKey && dataSource == DataSource.DATA_DISK_CACHE)
-          || dataSource == DataSource.LOCAL)
-          && encodeStrategy == EncodeStrategy.TRANSFORMED;
+      return ((isFromAlternateCacheKey && dataSource == DataSource.DATA_DISK_CACHE) || dataSource == DataSource.LOCAL) && encodeStrategy == EncodeStrategy.TRANSFORMED;
     }
 
     @Override

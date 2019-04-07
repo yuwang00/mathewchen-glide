@@ -52,6 +52,7 @@ public class LoadPath<Data, ResourceType, Transcode> {
       List<Throwable> exceptions) throws GlideException {
     Resource<Transcode> result = null;
     //noinspection ForLoopReplaceableByForEach to improve perf
+    //只要有一个成功就返回
     for (int i = 0, size = decodePaths.size(); i < size; i++) {
       DecodePath<Data, ResourceType, Transcode> path = decodePaths.get(i);
       try {

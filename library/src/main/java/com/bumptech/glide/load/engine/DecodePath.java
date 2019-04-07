@@ -43,6 +43,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
   public Resource<Transcode> decode(DataRewinder<DataType> rewinder, int width, int height,
       @NonNull Options options, DecodeCallback<ResourceType> callback) throws GlideException {
     Resource<ResourceType> decoded = decodeResource(rewinder, width, height, options);
+    //返回了一个带锁的资源以及缓存了原始资源
     Resource<ResourceType> transformed = callback.onResourceDecoded(decoded);
     return transcoder.transcode(transformed, options);
   }

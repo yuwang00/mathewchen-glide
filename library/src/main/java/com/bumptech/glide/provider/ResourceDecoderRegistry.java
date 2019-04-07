@@ -62,6 +62,7 @@ public class ResourceDecoderRegistry {
         continue;
       }
       for (Entry<?, ?> entry : entries) {
+        //如果entry能够解析
         if (entry.handles(dataClass, resourceClass)
             && !result.contains((Class<R>) entry.resourceClass)) {
           result.add((Class<R>) entry.resourceClass);

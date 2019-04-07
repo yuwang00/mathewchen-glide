@@ -290,8 +290,10 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
   private DataFetcherGenerator getNextGenerator() {
     switch (stage) {
       case RESOURCE_CACHE:
+        //有转换过的数据
         return new ResourceCacheGenerator(decodeHelper, this);
       case DATA_CACHE:
+        //有未经过转换的原始数据
         return new DataCacheGenerator(decodeHelper, this);
       case SOURCE:
         return new SourceGenerator(decodeHelper, this);
@@ -429,6 +431,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
     if (resource != null) {
       notifyEncodeAndRelease(resource, currentDataSource);
     } else {
+      //这里面会failed掉
       runGenerators();
     }
   }
@@ -444,11 +447,12 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
       lockedResource = LockedResource.obtain(resource);
       result = lockedResource;
     }
-
+    //通知外部完成
     notifyComplete(result, dataSource);
 
     stage = Stage.ENCODE;
     try {
+      //编码存本地
       if (deferredEncodeManager.hasResourceToEncode()) {
         deferredEncodeManager.encode(diskCacheProvider, options);
       }
@@ -549,19 +553,23 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
     Class<Z> resourceSubClass = (Class<Z>) decoded.get().getClass();
     Transformation<Z> appliedTransformation = null;
     Resource<Z> transformed = decoded;
+    //如果不是从硬盘中拿出来
     if (dataSource != DataSource.RESOURCE_DISK_CACHE) {
       appliedTransformation = decodeHelper.getTransformation(resourceSubClass);
       transformed = appliedTransformation.transform(glideContext, decoded, width, height);
     }
     // TODO: Make this the responsibility of the Transformation.
+    //如果没做任何变换则释放掉原资源
     if (!decoded.equals(transformed)) {
       decoded.recycle();
     }
 
     final EncodeStrategy encodeStrategy;
     final ResourceEncoder<Z> encoder;
+    //如果资源是可编码的
     if (decodeHelper.isResourceEncoderAvailable(transformed)) {
       encoder = decodeHelper.getResultEncoder(transformed);
+      //gif默认缓存源数据，其他默认缓存解码和转换后的数据
       encodeStrategy = encoder.getEncodeStrategy(options);
     } else {
       encoder = null;
@@ -570,6 +578,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
 
     Resource<Z> result = transformed;
     boolean isFromAlternateCacheKey = !decodeHelper.isSourceKey(currentSourceKey);
+    //是否缓存到disk中，跟外部选择的缓存策略也有关系
     if (diskCacheStrategy.isResourceCacheable(isFromAlternateCacheKey, dataSource,
         encodeStrategy)) {
       if (encoder == null) {
@@ -595,7 +604,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
         default:
           throw new IllegalArgumentException("Unknown strategy: " + encodeStrategy);
       }
-
+      //锁起来，怕回收？
       LockedResource<Z> lockedResult = LockedResource.obtain(transformed);
       deferredEncodeManager.init(key, encoder, lockedResult);
       result = lockedResult;
