@@ -193,7 +193,7 @@ public class Engine implements EngineJobListener,
       return null;
     }
 
-    //如果两级内存缓存都没有找到，则查找是否开启过任务
+    //如果两级内存缓存都没有找到，则查找是否开启过任务，或者是正在进行的任务，防止多次同请求
     EngineJob<?> current = jobs.get(key, onlyRetrieveFromCache);
     if (current != null) {
       current.addCallback(cb, callbackExecutor);

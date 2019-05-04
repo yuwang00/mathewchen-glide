@@ -1,33 +1,33 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
+ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
 	package
-		ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:11-39
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
+		ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:11-39
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-		ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+		ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:2:1-4:12
+		ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:2:1-4:12
 application
-ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml:3:3-17
+ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml:3:3-17
 uses-sdk
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-		ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+		ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-		ADDED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
-		INJECTED from /Users/chenmin/Documents/workspace/GlideDemo/library/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+		ADDED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml
+		INJECTED from /Users/chenmin/Documents/workspace/mathewchen-glide/library/src/main/AndroidManifest.xml

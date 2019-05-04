@@ -444,6 +444,7 @@ public class RequestManagerRetriever implements Handler.Callback {
     if (requestManager == null) {
       // TODO(b/27524013): Factor out this Glide.get() call.
       Glide glide = Glide.get(context);
+      //生命周期get
       requestManager =
           factory.build(
               glide, current.getGlideLifecycle(), current.getRequestManagerTreeNode(), context);

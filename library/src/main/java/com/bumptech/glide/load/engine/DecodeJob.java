@@ -447,12 +447,12 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
       lockedResource = LockedResource.obtain(resource);
       result = lockedResource;
     }
-    //通知外部完成
+    //通知外部完成,这里会回调外部的imageViewTarget
     notifyComplete(result, dataSource);
 
     stage = Stage.ENCODE;
     try {
-      //编码存本地
+      //编码存本地，先回调给外面再编码存起来
       if (deferredEncodeManager.hasResourceToEncode()) {
         deferredEncodeManager.encode(diskCacheProvider, options);
       }
@@ -486,6 +486,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
   @SuppressWarnings("unchecked")
   private <Data> Resource<R> decodeFromFetcher(Data data, DataSource dataSource)
       throws GlideException {
+    //获取Data,Decoder,Resource
     LoadPath<Data, ?, R> path = decodeHelper.getLoadPath((Class<Data>) data.getClass());
     return runLoadPath(data, dataSource, path);
   }
@@ -555,6 +556,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
     Resource<Z> transformed = decoded;
     //如果不是从硬盘中拿出来
     if (dataSource != DataSource.RESOURCE_DISK_CACHE) {
+      //这里就是切圆角什么的地方
       appliedTransformation = decodeHelper.getTransformation(resourceSubClass);
       transformed = appliedTransformation.transform(glideContext, decoded, width, height);
     }

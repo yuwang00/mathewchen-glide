@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    String url = "https://pic3.zhimg.com/80/v2-25e761ec8e11b31f049e4a24401a3702_hd.jpg";
+    String url = "https://upload-images.jianshu.io/upload_images/2789400-fcc72af8394a0819.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800/format/webp";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 GlideApp.with(MainActivity.this)
-                        .load(url).thumbnail().into((ImageView) findViewById(R.id.imageview_test));
+                        .load(url).into((ImageView) findViewById(R.id.imageview_test));
             }
         });
 

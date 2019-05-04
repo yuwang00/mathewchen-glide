@@ -44,6 +44,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
       @NonNull Options options, DecodeCallback<ResourceType> callback) throws GlideException {
     Resource<ResourceType> decoded = decodeResource(rewinder, width, height, options);
     //返回了一个带锁的资源以及缓存了原始资源
+    //decoded是原始资源，transformed是处理过的资源，例如圆角什么的
     Resource<ResourceType> transformed = callback.onResourceDecoded(decoded);
     return transcoder.transcode(transformed, options);
   }
@@ -65,8 +66,10 @@ public class DecodePath<DataType, ResourceType, Transcode> {
     Resource<ResourceType> result = null;
     //noinspection ForLoopReplaceableByForEach to improve perf
     for (int i = 0, size = decoders.size(); i < size; i++) {
+      //找到对应的Data->ResourceType解码器
       ResourceDecoder<DataType, ResourceType> decoder = decoders.get(i);
       try {
+        //InputStream/buffer
         DataType data = rewinder.rewindAndGet();
         if (decoder.handles(data, options)) {
           data = rewinder.rewindAndGet();
@@ -80,7 +83,7 @@ public class DecodePath<DataType, ResourceType, Transcode> {
         }
         exceptions.add(e);
       }
-
+      //只解码一次就好
       if (result != null) {
         break;
       }

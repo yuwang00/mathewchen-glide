@@ -348,6 +348,7 @@ public class Registry {
    */
   @NonNull
   public Registry register(@NonNull DataRewinder.Factory<?> factory) {
+    //注册读取头部工具
     dataRewinderRegistry.register(factory);
     return this;
   }
