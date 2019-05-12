@@ -296,6 +296,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
         //有未经过转换的原始数据
         return new DataCacheGenerator(decodeHelper, this);
       case SOURCE:
+        //网络
         return new SourceGenerator(decodeHelper, this);
       case FINISHED:
         return null;
@@ -423,6 +424,7 @@ class DecodeJob<R> implements DataFetcherGenerator.FetcherReadyCallback,
     }
     Resource<R> resource = null;
     try {
+      //transformed
       resource = decodeFromData(currentFetcher, currentData, currentDataSource);
     } catch (GlideException e) {
       e.setLoggingDetails(currentAttemptingKey, currentDataSource);

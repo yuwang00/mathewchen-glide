@@ -202,6 +202,7 @@ final class DecodeHelper<Transcode> {
     if (!isLoadDataSet) {
       isLoadDataSet = true;
       loadData.clear();
+      //String->InputStream
       List<ModelLoader<Object, ?>> modelLoaders = glideContext.getRegistry().getModelLoaders(model);
       //noinspection ForLoopReplaceableByForEach to improve perf
       for (int i = 0, size = modelLoaders.size(); i < size; i++) {

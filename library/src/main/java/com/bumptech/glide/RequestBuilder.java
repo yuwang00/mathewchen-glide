@@ -908,7 +908,8 @@ public class RequestBuilder<TranscodeType> extends BaseRequestOptions<RequestBui
     }
 
     //缩略图请求,这个也是聚合的请求，里面不光包含了缩略图，也包含了主请求
-    //(thumb->full)->error
+
+    //((thumb->full)->error)
     Request mainRequest =
         buildThumbnailRequestRecursive(
             target,

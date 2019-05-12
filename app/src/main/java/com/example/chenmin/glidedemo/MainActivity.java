@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -33,28 +34,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        recyclerView = findViewById(R.id.recyclerview);
-//        ArrayList<String> datas = new ArrayList<>();
-//        for (int i=0;i<50;i++){
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1550216290172-360-611.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1549022307533-384-681.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1549022244899-500-892.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1549021930467-384-682.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1549022732459-439-765.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1549012946870-513-289.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1548839281344-624-351.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1548760972236-986-559.png");
-//            datas.add("http://cms.gtimg.com/android_cms/dyfile/1548656758480-764-449.png");
-//        }
-//        MyAdapter myAdapter = new MyAdapter();
-//        myAdapter.setData(datas);
-//        recyclerView.setAdapter(myAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         findViewById(R.id.textview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GlideApp.with(MainActivity.this)
                         .load(url).into((ImageView) findViewById(R.id.imageview_test));
+
+                //with->requestManager
+                //load->requestBuild
+                //into->build request -> start request
+
+
+                //url->model
+                //imageView->target
             }
         });
 
